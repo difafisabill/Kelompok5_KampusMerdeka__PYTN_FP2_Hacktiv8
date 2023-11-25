@@ -2,5 +2,6 @@ streamlit
 pandas
 requests
 Pillow==8.3.2
+scikit-learn
 
 
