@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import requests  # Add this line to import the requests module
+import requests  
 import pickle
 from PIL import Image
 from io import BytesIO
@@ -18,7 +18,8 @@ else:
     st.error(f"Failed to download image. Status code: {response.status_code}")
 
 csv_url = 'https://drive.google.com/uc?id=1SD57WXJ8tk8P6_wizagGY8oIBpgQzmUW'
-
+logreg_model_url = 'https://github.com/difafisabill/Kelompok5_KampusMerdeka__PYTN_FP2_Hacktiv8/raw/main/logreg.pkl'
+svm_model_url = 'https://github.com/difafisabill/Kelompok5_KampusMerdeka__PYTN_FP2_Hacktiv8/raw/main/svm.pkl'
 
 
 def download_model_from_url(model_url, save_path):
@@ -29,20 +30,18 @@ def download_model_from_url(model_url, save_path):
     else:
         shutil.copy(model_url, save_path)
 
-# Logreg
+
 logreg_model_path = 'logreg_model.pkl'
-local_logreg_model_path = './logreg.pkl'
-download_model_from_url(local_logreg_model_path, logreg_model_path)
+download_model_from_url(logreg_model_url, logreg_model_path)
 
 if os.path.exists(logreg_model_path):
     with open(logreg_model_path, 'rb') as file:
         logreg_model = pickle.load(file)
 else:
     st.error("Failed to load Logistic Regression model.")
-# SVM
+
 svm_model_path = 'svm_model.pkl'
-local_svm_model_path = './svm.pkl'
-download_model_from_url(local_svm_model_path, svm_model_path)
+download_model_from_url(svm_model_url, svm_model_path)
 
 if os.path.exists(svm_model_path):
     with open(svm_model_path, 'rb') as file:
@@ -111,10 +110,10 @@ def main():
         'Walpole': 13,
         'Hobart': 16,
         'Launceston': 37,
-        'AliceSprings': 45,  # Mengubah indeks untuk 'AliceSprings'
-        'Darwin': 46,  # Mengubah indeks untuk 'Darwin'
-        'Katherine': 47,  # Mengubah indeks untuk 'Katherine'
-        'Uluru': 48  # Mengubah indeks untuk 'Uluru'
+        'AliceSprings': 45,  
+        'Darwin': 46, 
+        'Katherine': 47,  
+        'Uluru': 48  
         }
         return location_mapping.get(loc, -1)
       
